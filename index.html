@@ -1,1 +1,473 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#064b78">
+<title>TripDecision</title>
 
+<style>
+*{box-sizing:border-box}
+body{
+ margin:0;background:#f3f6f8;color:#173042;
+ font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif
+}
+.app{max-width:430px;margin:auto;min-height:100vh;padding-bottom:82px}
+
+.top{
+ background:#064b78;color:white;
+ padding:28px 20px 22px;
+ border-radius:0 0 24px 24px
+}
+.top small{font-weight:800;opacity:.8}
+.top h1{margin:7px 0 3px;font-size:27px}
+.top p{margin:0;font-size:13px;opacity:.8}
+
+.hero{
+ margin:14px;
+ background:linear-gradient(135deg,#0b628d,#073e61);
+ color:white;border-radius:18px;padding:18px
+}
+.hero h2{margin:5px 0}
+.bar{
+ height:6px;background:#ffffff35;
+ border-radius:10px;margin:13px 0
+}
+.bar i{
+ display:block;width:56%;height:100%;
+ background:white;border-radius:10px
+}
+
+.grid{
+ display:grid;grid-template-columns:repeat(3,1fr);
+ gap:9px;margin:12px 14px
+}
+.grid button{
+ border:0;background:white;border-radius:15px;
+ padding:14px 5px;font-weight:700;color:#435d6c
+}
+.grid b{display:block;font-size:21px;margin-bottom:5px}
+
+.sec{padding:3px 14px}
+.sec h3{font-size:15px}
+
+.card{
+ background:white;border-radius:16px;
+ padding:14px;margin-bottom:10px;
+ box-shadow:0 2px 10px #1730420a
+}
+
+.row{display:flex;gap:12px;align-items:center}
+.grow{flex:1}
+.title{font-size:14px;font-weight:800}
+.sub{font-size:11px;color:#7b8c98;margin-top:4px}
+
+.wallet{
+ display:grid;grid-template-columns:repeat(3,1fr);gap:7px
+}
+.wallet div{
+ background:#f6f8fa;border-radius:12px;padding:10px
+}
+.wallet small{
+ display:block;font-size:9px;color:#7b8c98
+}
+.wallet strong{font-size:12px}
+
+.screen{display:none}
+.screen.on{display:block}
+
+.route{
+ display:flex;align-items:center;gap:10px
+}
+.date{
+ width:38px;text-align:center;color:#064b78;
+ font-size:10px;font-weight:800
+}
+.date strong{display:block;font-size:18px}
+.line{
+ border-left:2px solid #d9e4e9;
+ padding-left:13px
+}
+
+.expense{
+ display:flex;justify-content:space-between;
+ padding:10px 0;border-bottom:1px solid #edf1f3
+}
+
+.btn{
+ width:100%;border:0;background:#064b78;
+ color:white;border-radius:13px;padding:13px;
+ font-weight:800
+}
+
+.nav{
+ position:fixed;bottom:0;left:50%;
+ transform:translateX(-50%);
+ width:min(430px,100%);
+ height:68px;background:white;
+ border-top:1px solid #e7ecef;
+ display:flex
+}
+.nav button{
+ flex:1;border:0;background:none;
+ color:#8999a3;font-size:9px;font-weight:700
+}
+.nav b{display:block;font-size:19px}
+.nav .sel{color:#064b78}
+</style>
+</head>
+
+<body>
+
+<main class="app">
+
+<section id="home" class="screen on">
+
+<header class="top">
+<small>TripDecision</small>
+<h1>Olá, viajante 👋</h1>
+<p>Sua viagem organizada em um só lugar.</p>
+</header>
+
+<div class="hero">
+<small>MINHA VIAGEM</small>
+<h2>Eurotrip 2026 🇪🇺</h2>
+<div>13–28 dez · 16 dias · 2 viajantes</div>
+
+<div class="bar"><i></i></div>
+
+<small>Planejamento em andamento</small>
+</div>
+
+<div class="grid">
+
+<button onclick="go('trip',1)">
+<b>🗺️</b>Roteiro
+</button>
+
+<button onclick="go('budget',3)">
+<b>◔</b>Orçamento
+</button>
+
+<button onclick="go('sim',4)">
+<b>⇄</b>Simulador
+</button>
+
+<button>
+<b>▣</b>Reservas
+</button>
+
+<button>
+<b>⌖</b>Mapas
+</button>
+
+<button>
+<b>✓</b>Checklist
+</button>
+
+</div>
+
+<div class="sec">
+
+<h3>Próximo destino</h3>
+
+<div class="card row">
+<div style="font-size:34px">🇭🇺</div>
+
+<div class="grow">
+<div class="title">Budapeste</div>
+<div class="sub">14–17 dez · 3 noites</div>
+<div class="sub">
+Parlamento · Castelo de Buda · Danúbio
+</div>
+</div>
+</div>
+
+<h3>Resumo financeiro</h3>
+
+<div class="card wallet">
+
+<div>
+<small>JÁ PAGO</small>
+<strong>R$ 9.982,30</strong>
+</div>
+
+<div>
+<small>GASTOS</small>
+<strong>R$ 0,00</strong>
+</div>
+
+<div>
+<small>TOTAL</small>
+<strong>R$ 9.982,30</strong>
+</div>
+
+</div>
+</div>
+</section>
+
+
+<section id="trip" class="screen">
+
+<header class="top">
+<small>EUROTRIP 2026</small>
+<h1>Viagem</h1>
+<p>Seu roteiro por cidades.</p>
+</header>
+
+<div class="sec" id="route"></div>
+
+</section>
+
+
+<section id="today" class="screen">
+
+<header class="top">
+<small>16 DEZ · BUDAPESTE</small>
+<h1>Hoje</h1>
+<p>Seu dia de viagem.</p>
+</header>
+
+<div class="sec">
+
+<div class="card">
+<div class="title">
+09:00 · Parlamento de Budapeste
+</div>
+<div class="sub">Passeio planejado</div>
+</div>
+
+<div class="card">
+<div class="title">
+14:30 · Castelo de Buda
+</div>
+<div class="sub">Passeio planejado</div>
+</div>
+
+<div class="card">
+<div class="title">
+19:30 · Cruzeiro no Danúbio
+</div>
+<div class="sub">
+Reservado · R$ 258,44
+</div>
+</div>
+
+</div>
+</section>
+
+
+<section id="budget" class="screen">
+
+<header class="top">
+<small>FINANCEIRO</small>
+<h1>Orçamento</h1>
+<p>Viagem, carteira e gastos.</p>
+</header>
+
+<div class="sec">
+
+<h3>Custo da viagem</h3>
+
+<div class="card">
+
+<div class="sub">
+Planejamento original
+</div>
+
+<h2>R$ 17.163,04</h2>
+
+<div class="expense">
+<span>Viagem já paga</span>
+<b>R$ 9.982,30</b>
+</div>
+
+<div class="expense">
+<span>Gastos diários</span>
+<b>R$ 0,00</b>
+</div>
+
+</div>
+
+<h3>Carteira</h3>
+
+<div class="card wallet">
+
+<div>
+<small>EURO</small>
+<strong>€ 1.000</strong>
+</div>
+
+<div>
+<small>FRANCO</small>
+<strong>CHF 0</strong>
+</div>
+
+<div>
+<small>REAL</small>
+<strong>R$ 0</strong>
+</div>
+
+</div>
+
+<button class="btn"
+onclick="alert('Registro de gastos será conectado na próxima etapa.')">
++ Registrar gasto
+</button>
+
+</div>
+</section>
+
+
+<section id="sim" class="screen">
+
+<header class="top">
+<small>DECISÕES</small>
+<h1>Simulador</h1>
+<p>Compare custo, tempo e logística.</p>
+</header>
+
+<div class="sec">
+
+<div class="card">
+
+<div class="title">
+🚆 Trem · Viena → Praga
+</div>
+
+<div class="expense">
+<span>Custo informado</span>
+<b>€ 45</b>
+</div>
+
+<div class="expense">
+<span>Tempo efetivo</span>
+<b>5h00</b>
+</div>
+
+</div>
+
+<div class="card">
+
+<div class="title">
+✈️ Avião
+</div>
+
+<div class="expense">
+<span>Custo + acessos</span>
+<b>€ 120</b>
+</div>
+
+<div class="expense">
+<span>Tempo porta a porta</span>
+<b>5h05</b>
+</div>
+
+</div>
+
+<div class="sub">
+Valores demonstrativos; não são tarifas em tempo real.
+</div>
+
+</div>
+</section>
+
+</main>
+
+
+<nav class="nav">
+
+<button class="sel" onclick="go('home',0)">
+<b>⌂</b>Início
+</button>
+
+<button onclick="go('trip',1)">
+<b>⌖</b>Viagem
+</button>
+
+<button onclick="go('today',2)">
+<b>☀</b>Hoje
+</button>
+
+<button onclick="go('budget',3)">
+<b>◔</b>Gastos
+</button>
+
+<button onclick="go('sim',4)">
+<b>⇄</b>Simulador
+</button>
+
+</nav>
+
+
+<script>
+
+let cidades=[
+['14','🇭🇺','Budapeste','14–17 dez · 3 noites'],
+['17','🇦🇹','Viena','17–20 dez · 3 noites'],
+['18','🇸🇰','Bratislava','Bate-volta'],
+['20','🇨🇿','Praga','20–23 dez · 3 noites'],
+['23','🇩🇪','Munique','23–25 dez · 2 noites'],
+['25','🇨🇭','Chur','25–26 dez · 1 noite'],
+['26','🚆','Bernina','Chur → Tirano → Milão'],
+['26','🇮🇹','Milão','26–27 dez · 1 noite'],
+['27','🇵🇹','Lisboa','27–28 dez · 1 noite']
+];
+
+document.getElementById("route").innerHTML =
+cidades.map(c => `
+
+<div class="card route">
+
+<div class="date">
+<strong>${c[0]}</strong>
+DEZ
+</div>
+
+<div style="font-size:30px">
+${c[1]}
+</div>
+
+<div class="line">
+
+<div class="title">
+${c[2]}
+</div>
+
+<div class="sub">
+${c[3]}
+</div>
+
+</div>
+
+</div>
+
+`).join("");
+
+
+function go(id,n){
+
+document
+.querySelectorAll(".screen")
+.forEach(x=>x.classList.remove("on"));
+
+document
+.getElementById(id)
+.classList.add("on");
+
+document
+.querySelectorAll(".nav button")
+.forEach(x=>x.classList.remove("sel"));
+
+document
+.querySelectorAll(".nav button")[n]
+.classList.add("sel");
+
+window.scrollTo(0,0);
+
+}
+
+</script>
+
+</body>
+</html>
